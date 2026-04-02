@@ -50,6 +50,7 @@ ciberseguranca_brute_force/
 │ ├── smb_users.txt  #Arquivo com usuários para ataque SMB
 │ ├── spray_pass.txt #Arquivo com senhas para ataque SMB
 │ └── users.txt      #Arquivo com usuários para ataques FTP e HTTP
+├── premissas_desafio.md        #Arquivo com as premissas do desafio
 ├── README.md        #Este arquivo
 └── enum4_output.txt #Arquivo exportado com o resultado da Enumeração executada
 ```
